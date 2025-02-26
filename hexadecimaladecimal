@@ -1,0 +1,75 @@
+
+
+#------------------------------------------FUNCIONES------------------------------------------
+# función para convertir un número hexadecimal a decimal
+def hex_a_decimal(hex_str):
+
+    # Verificamos que sea un número hexadecimal válido
+    try:
+        # La función int con base 16 convierte automáticamente de hexadecimal a decimal
+        decimal = int(hex_str, 16)
+        return decimal
+    except ValueError:
+        return "Error: Entrada no es un número hexadecimal válido."
+
+
+# función para convertir un número decimal a hexadecimal JDFJDFBJABDFJA
+def decimal_a_hex(decimal):
+    """
+    Convierte un número decimal a hexadecimal.
+    
+    Args:
+        decimal (int): Número decimal a convertir.
+        
+    Returns:
+        str: Representación hexadecimal de 3 dígitos.
+    """
+    try:
+        # Convertimos a entero por si acaso
+        decimal = int(decimal)
+        
+        # Verificamos que esté en el rango adecuado (0-4095 para 3 dígitos hex)
+        if decimal < 0 or decimal > 4095:  # FFF en hexadecimal = 4095 en decimal
+            return "Error: El número debe estar entre 0 y 4095 para ser representado con 3 dígitos hexadecimales."
+        
+        # Convertimos a hexadecimal y eliminamos el prefijo '0x'
+        hex_str = hex(decimal)[2:].upper()
+        
+        # Aseguramos que tenga 3 dígitos (añadimos ceros a la izquierda si es necesario)
+        while len(hex_str) < 3:
+            hex_str = '0' + hex_str
+            
+        return hex_str
+    except ValueError:
+        return "Error: Entrada no es un número decimal válido."
+
+
+
+#------------------------------------------MENU------------------------------------------
+def main():
+    """Función principal del programa."""
+    print("CONVERSOR HEXADECIMAL-DECIMAL")
+    print("===========================")
+    print("1. Convertir de Hexadecimal a Decimal")
+    print("2. Convertir de Decimal a Hexadecimal")
+    
+    opcion = input("\nElige una opción (1 o 2): ")
+    
+    if opcion == "1":
+        hex_input = input("Ingresa un número hexadecimal de 3 dígitos: ")
+        if len(hex_input) != 3:
+            print("Error: Debes ingresar exactamente 3 dígitos hexadecimales.")
+        else:
+            resultado = hex_a_decimal(hex_input)
+            print(f"El valor decimal de {hex_input} es: {resultado}")
+            
+    elif opcion == "2":
+        dec_input = input("Ingresa un número decimal (0-4095): ")
+        resultado = decimal_a_hex(dec_input)
+        print(f"El valor hexadecimal de {dec_input} es: {resultado}")
+        
+    else:
+        print("Opción no válida. Por favor, elige 1 o 2.")
+
+#------------------------------------------EJECUCION------------------------------------------
+main()
